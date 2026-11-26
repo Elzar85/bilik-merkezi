@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Biliklərini yoxla, testlər həll et və nəticəni öyrən.">
+<title>BilikMərkəzi — Test və bilik platforması</title>
+<style>
+:root{--green:#16845b;--dark:#12352b;--bg:#f4f8f6;--muted:#63756d;--line:#dce8e1}
+*{box-sizing:border-box}body{margin:0;font-family:Arial, sans-serif;background:var(--bg);color:#18352b}
+header{background:white;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:2}
+.wrap{max-width:1050px;margin:auto;padding:0 18px}
+.nav{height:68px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;font-size:21px;color:var(--dark)}.logo span{color:var(--green)}
+nav a{color:#38564a;text-decoration:none;margin-left:20px;font-size:14px}
+.hero{padding:54px 0 38px;background:linear-gradient(120deg,#e1f3e9,#f6fbf8)}
+.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:0 0 14px;max-width:700px}
+.hero p{color:var(--muted);font-size:17px;line-height:1.6;max-width:650px}
+.btn{border:0;border-radius:10px;background:var(--green);color:white;padding:12px 18px;font-weight:700;cursor:pointer}
+.btn.secondary{background:#e8f3ed;color:var(--dark)}.btn:disabled{opacity:.45;cursor:not-allowed}
+main{padding:30px 0 60px}.section-title{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:16px}
+.section-title h2{margin:0;font-size:25px}.muted{color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+.card{background:white;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 4px 14px #18352b08}
+.card .emoji{font-size:28px}.card h3{margin:12px 0 7px}.card p{color:var(--muted);font-size:14px;line-height:1.5;min-height:42px}
+.card .meta{font-size:12px;color:var(--muted);margin:12px 0}
+.panel{max-width:760px;margin:0 auto;background:white;border:1px solid var(--line);border-radius:18px;padding:24px}
+.progress{height:8px;background:#e8efeb;border-radius:10px;overflow:hidden;margin:14px 0 22px}.progress div{height:100%;background:var(--green);width:0}
+.option{display:block;width:100%;text-align:left;border:1px solid var(--line);border-radius:11px;background:white;padding:14px;margin:10px 0;cursor:pointer;color:var(--dark);font-size:15px}
+.option:hover{border-color:var(--green);background:#f4fbf7}.option.selected{border:2px solid var(--green);background:#eaf6ef}
+.hidden{display:none!important}.result{text-align:center;padding:25px 5px}.score{font-size:46px;font-weight:800;color:var(--green)}
+footer{padding:25px 0;background:#12352b;color:#d9e9e0;font-size:13px}
+@media(max-width:600px){nav a{margin-left:10px;font-size:12px}.nav{height:60px}.hero{padding:38px 0 28px}.panel{padding:18px}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav"><div class="logo">Bilik<span>Mərkəzi</span></div><nav><a href="#tests">Testlər</a><a href="#about">Haqqımızda</a></nav></div></header>
+<section class="hero"><div class="wrap"><h1>Biliklərini yoxla. Hər gün bir az daha öyrən.</h1><p>Maraqlı testlər həll et, nəticəni dərhal gör və özünü müxtəlif mövzularda sına.</p><a href="#tests"><button class="btn">Testlərə başla</button></a></div></section>
+<main class="wrap">
+<section id="tests"><div class="section-title"><div><h2>Test kateqoriyaları</h2><p class="muted">Bir mövzu seç və biliklərini yoxla.</p></div></div><div class="grid" id="categories"></div></section>
+<section id="quiz" class="hidden" style="margin-top:28px"><div class="panel">
+<div class="section-title"><div><div class="muted" id="quizCategory"></div><h2 id="questionTitle">Sual</h2></div><div class="muted" id="counter"></div></div>
+<div class="progress"><div id="progressBar"></div></div><div id="options"></div>
+<div style="display:flex;justify-content:space-between;gap:10px;margin-top:20px"><button class="btn secondary" id="quitBtn">Testlərə qayıt</button><button class="btn" id="nextBtn" disabled>Növbəti sual</button></div>
+<div class="muted" id="feedback" style="margin-top:14px"></div>
+</div></section>
+<section id="result" class="hidden" style="margin-top:28px"><div class="panel result"><div class="muted">Test tamamlandı</div><div class="score" id="score"></div><h2 id="resultTitle"></h2><p class="muted" id="resultText"></p><button class="btn" id="againBtn">Başqa test seç</button></div></section>
+<section id="about" style="margin-top:38px"><h2>Platforma haqqında</h2><p class="muted" style="line-height:1.7">BilikMərkəzi ilkin sınaq versiyasıdır. Testlər hazırda pulsuzdur. Yeni mövzular və suallar mərhələli şəkildə əlavə ediləcək.</p></section>
+</main>
+<footer><div class="wrap">© 2026 BilikMərkəzi · Öyrənmək hər kəs üçün əlçatandır.</div></footer>
+<script>
+const tests=[
+{id:"general",name:"Ümumi bilik",emoji:"🌍",desc:"Coğrafiya, elm və gündəlik biliklər.",questions:[
+{q:"Azərbaycanın paytaxtı hansıdır?",a:["Gəncə","Bakı","Şəki","Naxçıvan"],c:1},
+{q:"Yer kürəsinin təbii peyki hansıdır?",a:["Mars","Günəş","Ay","Venera"],c:2},
+{q:"Su normal atmosfer təzyiqində neçə °C-də qaynayır?",a:["50°C","80°C","100°C","120°C"],c:2},
+{q:"Dünyanın ən böyük okeanı hansıdır?",a:["Atlantik","Hind","Şimal Buzlu","Sakit"],c:3},
+{q:"Bitkilər fotosintez zamanı əsasən hansı qazı udur?",a:["Oksigen","Karbon qazı","Azot","Hidrogen"],c:1}]},
+{id:"logic",name:"Məntiq",emoji:"🧠",desc:"Ardıcıllıq və düşünmə bacarığını sına.",questions:[
+{q:"2, 4, 8, 16, ... ardıcıllığında növbəti ədəd hansıdır?",a:["18","24","32","34"],c:2},
+{q:"Bir həftədə neçə saat var?",a:["148","158","168","178"],c:2},
+{q:"Bütün güllər bitkidir. Qızılgül güldür. Deməli:",a:["Qızılgül bitkidir","Bütün bitkilər qızılgüldür","Qızılgül ağacdır","Heç biri"],c:0},
+{q:"Saat 3:00-da əqrəblər arasındakı kiçik bucaq neçə dərəcədir?",a:["45°","60°","90°","180°"],c:2},
+{q:"5 maşın 5 dəqiqəyə 5 detal hazırlayır. 100 maşın 5 dəqiqəyə neçə detal hazırlayar?",a:["20","50","100","500"],c:2}]},
+{id:"english",name:"İngilis dili",emoji:"🇬🇧",desc:"Sadə sözlər və qrammatika sualları.",questions:[
+{q:'"Apple" sözünün Azərbaycan dilində mənası nədir?',a:["Armud","Alma","Portağal","Gilas"],c:1},
+{q:'"She ___ a teacher." cümləsini tamamla.',a:["am","are","is","be"],c:2},
+{q:'"Good morning" nə deməkdir?',a:["Axşamınız xeyir","Sabahınız xeyir","Gecəniz xeyrə","Sağ olun"],c:1},
+{q:'"Book" sözünün cəmi hansıdır?',a:["Bookes","Books","Bookies","Book"],c:1},
+{q:'"I have lived here ___ 2020."',a:["for","since","at","by"],c:1}]},
+{id:"traffic",name:"Yol hərəkəti",emoji:"🚦",desc:"Yol nişanları və təhlükəsiz hərəkət.",questions:[
+{q:"Svetoforun qırmızı işığı nə bildirir?",a:["Hərəkətə davam et","Sürəti artır","Dayan","Yalnız sola dön"],c:2},
+{q:"Piyada keçidinə yaxınlaşarkən sürücü nə etməlidir?",a:["Sürəti artırmalıdır","Ehtiyatlı olmalı və piyadaya yol verməlidir","Siqnal verməlidir","Dayanmadan keçməlidir"],c:1},
+{q:"Təhlükəsizlik kəmərindən istifadə kimlər üçün vacibdir?",a:["Yalnız sürücü","Yalnız ön sərnişin","Qanunla tələb olunan hallarda sürücü və sərnişinlər","Heç kim üçün"],c:2},
+{q:"Sürüşkən yolda düzgün davranış hansıdır?",a:["Kəskin tormozlama","Kəskin manevr","Sürəti azaltmaq və məsafəni artırmaq","Sürəti artırmaq"],c:2},
+{q:"Yol nişanları və nişanlanma xətləri nə üçündür?",a:["Yolu bəzəmək üçün","Hərəkəti tənzimləmək və təhlükəsizliyi təmin etmək üçün","Yalnız piyadalar üçün","Yalnız gecə üçün"],c:1}]}
+];
+let current=null,index=0,score=0,chosen=null,locked=false;
+const $=id=>document.getElementById(id);
+function show(id){["tests","quiz","result"].forEach(x=>$(x).classList.toggle("hidden",x!==id));}
+function renderCategories(){
+$("categories").innerHTML=tests.map(t=>`<article class="card"><div class="emoji">${t.emoji}</div><h3>${t.name}</h3><p>${t.desc}</p><div class="meta">${t.questions.length} sual · Təxmini 3 dəqiqə</div><button class="btn" onclick="startTest('${t.id}')">Testə başla</button></article>`).join("");
+}
+function startTest(id){current=tests.find(t=>t.id===id);index=0;score=0;show("quiz");$("quiz").scrollIntoView({behavior:"smooth"});renderQuestion();}
+function renderQuestion(){
+chosen=null;locked=false;let q=current.questions[index];$("quizCategory").textContent=current.name;$("questionTitle").textContent=q.q;$("counter").textContent=`${index+1} / ${current.questions.length}`;$("progressBar").style.width=`${index/current.questions.length*100}%`;$("feedback").textContent="";$("nextBtn").disabled=true;$("nextBtn").textContent=index===current.questions.length-1?"Nəticəni gör":"Növbəti sual";
+$("options").innerHTML=q.a.map((a,i)=>`<button class="option" data-i="${i}">${String.fromCharCode(65+i)}. ${a}</button>`).join("");
+document.querySelectorAll(".option").forEach(b=>b.addEventListener("click",()=>selectOption(Number(b.dataset.i))));
+}
+function selectOption(i){if(locked)return;chosen=i;document.querySelectorAll(".option").forEach((b,n)=>b.classList.toggle("selected",n===i));$("nextBtn").disabled=false;}
+$("nextBtn").addEventListener("click",()=>{if(chosen===null)return;let q=current.questions[index];if(chosen===q.c)score++;locked=true;document.querySelectorAll(".option").forEach((b,n)=>{b.disabled=true;if(n===q.c)b.style.borderColor="#16845b";if(n===chosen&&chosen!==q.c)b.style.borderColor="#c84b4b";});$("feedback").textContent=chosen===q.c?"Düzgün cavab!":"Düzgün cavab: "+q.a[q.c];$("nextBtn").textContent=index===current.questions.length-1?"Nəticəni gör":"Davam et";$("nextBtn").onclick=()=>{if(index<current.questions.length-1){index++;renderQuestion();$("nextBtn").onclick=null;}else finish();};});
+function finish(){show("result");let pct=Math.round(score/current.questions.length*100);$("score").textContent=`${score} / ${current.questions.length}`;$("resultTitle").textContent=pct>=80?"Əla nəticə!":pct>=50?"Yaxşı cəhd!":"Daha çox məşq et!";$("resultText").textContent=`Düzgün cavab faizi: ${pct}%. Başqa testlə biliklərini inkişaf etdir.`;$("result").scrollIntoView({behavior:"smooth"});}
+$("quitBtn").onclick=()=>{show("tests");$("tests").scrollIntoView({behavior:"smooth"});};
+$("againBtn").onclick=()=>{show("tests");$("tests").scrollIntoView({behavior:"smooth"});};
+renderCategories();
+</script>
+</body></html>
