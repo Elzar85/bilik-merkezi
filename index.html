@@ -92,6 +92,62 @@ $("nextBtn").addEventListener("click",()=>{if(chosen===null)return;let q=current
 function finish(){show("result");let pct=Math.round(score/current.questions.length*100);$("score").textContent=`${score} / ${current.questions.length}`;$("resultTitle").textContent=pct>=80?"Əla nəticə!":pct>=50?"Yaxşı cəhd!":"Daha çox məşq et!";$("resultText").textContent=`Düzgün cavab faizi: ${pct}%. Başqa testlə biliklərini inkişaf etdir.`;$("result").scrollIntoView({behavior:"smooth"});}
 $("quitBtn").onclick=()=>{show("tests");$("tests").scrollIntoView({behavior:"smooth"});};
 $("againBtn").onclick=()=>{show("tests");$("tests").scrollIntoView({behavior:"smooth"});};
+  
+tests.push(
+{
+id:"math",
+name:"Riyaziyyat",
+emoji:"📐",
+desc:"Riyazi bilik və hesablama bacarıqları.",
+questions:[
+{q:"25 + 37 neçədir?",a:["52","62","72","63"],c:1},
+{q:"12 × 8 neçədir?",a:["86","92","96","108"],c:2},
+{q:"200-ün 25 faizi neçədir?",a:["25","40","50","75"],c:2},
+{q:"Kvadratın tərəfi 5 sm olarsa, sahəsi neçədir?",a:["10 sm²","20 sm²","25 sm²","30 sm²"],c:2},
+{q:"3x = 21 olarsa, x neçədir?",a:["6","7","8","9"],c:1}
+]
+},
+{
+id:"az-language",
+name:"Azərbaycan dili",
+emoji:"📚",
+desc:"Qrammatika, nitq hissələri və dil qaydaları.",
+questions:[
+{q:"Azərbaycan dilində neçə sait səs var?",a:["8","9","10","11"],c:1},
+{q:"Hansı söz isimdir?",a:["Gözəl","Kitab","Qaçmaq","Tez"],c:1},
+{q:"Hansı söz sifətdir?",a:["Məktəb","Oxumaq","Ağıllı","Dünən"],c:2},
+{q:"\"Uşaqlar\" sözündə cəm şəkilçisi hansıdır?",a:["-lar","-da","-ın","-çı"],c:0},
+{q:"Cümlənin sonunda sual işarəsi nə zaman qoyulur?",a:["Əmr bildirəndə","Sual bildirəndə","Xəbər bildirəndə","Nida bildirəndə"],c:1}
+]
+},
+{
+id:"history",
+name:"Azərbaycan tarixi",
+emoji:"🏛️",
+desc:"Azərbaycanın qədim və müasir tarixi.",
+questions:[
+{q:"Azərbaycan Xalq Cümhuriyyəti nə vaxt yaradılıb?",a:["1917","1918","1920","1991"],c:1},
+{q:"Azərbaycan Xalq Cümhuriyyətinin paytaxtı sonradan hansı şəhər olub?",a:["Gəncə","Şuşa","Bakı","Şamaxı"],c:2},
+{q:"Azərbaycan dövlət müstəqilliyini bərpa etdiyi tarix hansıdır?",a:["18 oktyabr 1991","28 may 1918","9 noyabr 1991","12 noyabr 1995"],c:0},
+{q:"Azərbaycanın ilk milli parlamenti hansı ildə fəaliyyətə başlayıb?",a:["1918","1920","1991","1995"],c:0},
+{q:"Azərbaycan Respublikasının Konstitusiyası nə vaxt qəbul edilib?",a:["1991","1993","1995","2000"],c:2}
+]
+},
+{
+id:"literature",
+name:"Ədəbiyyat",
+emoji:"✍️",
+desc:"Azərbaycan və dünya ədəbiyyatından suallar.",
+questions:[
+{q:"\"Leyli və Məcnun\" poemasının müəllifi kimdir?",a:["Füzuli","Nizami Gəncəvi","Xaqani","Nəsimi"],c:0},
+{q:"\"Koroğlu\" əsəri hansı janra aiddir?",a:["Roman","Dastan","Povest","Məqalə"],c:1},
+{q:"\"Xəmsə\"nin müəllifi kimdir?",a:["Füzuli","Nizami Gəncəvi","Sabir","Cəlil Məmmədquluzadə"],c:1},
+{q:"\"Ölülər\" əsərinin müəllifi kimdir?",a:["Mirzə Fətəli Axundzadə","Cəlil Məmmədquluzadə","Səməd Vurğun","Məmməd Araz"],c:1},
+{q:"\"Molla Nəsrəddin\" jurnalının əsas təsisçisi kimdir?",a:["Cəlil Məmmədquluzadə","Üzeyir Hacıbəyli","Mirzə Ələkbər Sabir","Nizami Gəncəvi"],c:0}
+]
+}
+);
+
 renderCategories();
 </script>
 </body></html>
